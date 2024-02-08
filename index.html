@@ -34,7 +34,7 @@
 	</div>
 	
 	<script>
-		function validate(pace){
+		function validate(t){
 			if(isNaN(t)){
 					msg = "Please verify whether the temperature value is correct!!!";
 					alert(msg);
@@ -45,9 +45,10 @@
 					alert(msg);
 					return;
 			   }
-			   var t1;
 		}
-		function paceCal(pace,dist){
+		function tmpConv(t,u){
+			var t1;
+			var u1;
 			if(u == "F"){
 					t1 = t * (9/5) + 32;
 					u1 = "Fahrenheit";
@@ -58,14 +59,20 @@
 					t1 = t * (4/5);
 					u1 = "Kelvin";
 			   }
-			   var u1;
+			   return {t1,u1}
 		}
 	    $(document).ready(function(){
 			$("button").click(function(){
 			   var t = $('#temp').val();//celsius
 			   var u = $('#unit').val();
-			   
-			alert("Temperature is "+t1+" in "+u1);
+
+			   var chk = validate(t);
+			   if(chk != null) return chk;
+
+			   var tmpConved = tmpConv (t,u);
+
+			   //alert("Temperature is "+t1+" in "+u1);
+			    $('#result').text("Temperature is " +tmpConved.t1+ "in"+tmpConved.u1);
 			});
 		});
 	</script>
